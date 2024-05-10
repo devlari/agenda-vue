@@ -44,16 +44,17 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { PhAddressBookTabs } from '@phosphor-icons/vue'
 import SweetAlert from 'sweetalert2'
-import InputComponent from '@/components/layout/Input.vue'
+import InputComponent from '@/components/ui/Input.vue'
 import AuthService from '../service'
+import { Login, AuthInfo } from '../types'
 // import { useAuthStore } from '../store'
 
-async function login(username, password) {
+async function login({ username, password }: Login): Promise<AuthInfo | null> {
   //TODO: conectar com a API
   const service = new AuthService()
 
