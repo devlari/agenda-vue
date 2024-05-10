@@ -1,10 +1,14 @@
 <template>
   <div class="input">
-    <input :placeholder="placeholder" :type="type" :value="value" class="form-control" />
+    <input
+      :placeholder="placeholder"
+      :type="type"
+      :value="modelValue"
+      class="form-control"
+      @input="handleInput"
+    />
   </div>
 </template>
-
-<style></style>
 
 <script>
 export default {
@@ -18,9 +22,20 @@ export default {
       type: String,
       default: 'text'
     },
-    value: {
-      type: String,
+    modelValue: {
+      type: [String, Number],
       default: ''
+    }
+  },
+  data() {
+    return {
+      text: this.value
+    }
+  },
+  emits: ['update:modelValue'],
+  methods: {
+    handleInput(event) {
+      this.$emit('update:modelValue', event.target.value)
     }
   }
 }

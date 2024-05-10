@@ -1,7 +1,7 @@
 import ApiClient from "@/service/httpClient";
 import type { Login } from "./types";
 
-export default class UserService {
+export default class AuthService {
   private apiClient: ApiClient;
 
   constructor() {
@@ -9,7 +9,7 @@ export default class UserService {
   }
 
   async login(login: Login) {
-    return this.apiClient.post("/auth/login", { ...login });
+    return this.apiClient.post("/auth/login/", { ...login });
   }
 
 }
