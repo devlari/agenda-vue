@@ -51,25 +51,7 @@ import { PhAddressBookTabs } from '@phosphor-icons/vue'
 import SweetAlert from 'sweetalert2'
 import InputComponent from '@/components/ui/Input.vue'
 import AuthService from '../service'
-import { Login, AuthInfo } from '../types'
-// import { useAuthStore } from '../store'
-
-async function login({ username, password }: Login): Promise<AuthInfo | null> {
-  //TODO: conectar com a API
-  const service = new AuthService()
-
-  try {
-    const res = await service.login(username, password)
-    return res
-  } catch (error) {
-    await SweetAlert.fire({
-      title: 'Atenção!',
-      text: 'Usuário ou senha inválidos',
-      icon: 'error'
-    })
-    return
-  }
-}
+import { useAuthStore } from '../store'
 
 export default defineComponent({
   components: {
@@ -81,6 +63,8 @@ export default defineComponent({
     const password = ref('')
     const remember = ref(false)
     const router = useRouter()
+    const authStore = useAuthStore()
+    const service = new AuthService()
 
     const handleLogin = async () => {
       if (!username.value || !password.value) {
@@ -92,14 +76,17 @@ export default defineComponent({
         return
       }
 
-      // const info = login(username.value, password.value)
-      // if (!info) return
-
-      // TODO: Implementar store com informações do usuário (caso selecionado)
-      // const authStore = useAuthStore()
-      // authStore.setToken(info.token)
-
-      router.push({ name: 'home' })
+      try {
+        const info = await service.login({ username: username.value, password: password.value })
+        await authStore.login(info)
+        router.push({ name: 'home' })
+      } catch (error) {
+        await SweetAlert.fire({
+          title: 'Atenção!',
+          text: 'Usuário ou senha inválidos',
+          icon: 'error'
+        })
+      }
     }
 
     return {

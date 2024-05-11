@@ -1,5 +1,5 @@
 import type { Person } from "../Person/types";
-import type { User } from "../Users/types";
+import type { User } from "../User/types";
 
 export type TypeContact = 'CELULAR' | 'TELEFONE' |'EMAIL'
 

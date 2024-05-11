@@ -1,19 +1,33 @@
 import { defineStore } from 'pinia';
-import type { Login } from './types';
+import type { AuthInfo } from './types';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    username: '',
-    password: '',
-    isLoggedIn: false,
+    authInfo: null as AuthInfo | null, 
+    rememberMe: false
   }),
   actions: {
-    login({username, password}: Login) {
-      this.username = username;
-      this.password = password;
-      this.isLoggedIn = true; 
+    async login(authInfo: AuthInfo): Promise<void> {
+      this.authInfo = authInfo; 
+      localStorage.setItem('authInfo', JSON.stringify(authInfo)); 
     },
-    logout() {
+    async logout(): Promise<void> {
+      localStorage.removeItem('authInfo'); 
+      this.authInfo = null; 
+    },
+    setRememberMe(rememberMe: boolean) {
+      this.rememberMe = rememberMe;
     },
   },
+  getters: {
+    isAuthenticated(): boolean {
+      return !!this.authInfo;
+    },
+    getRememberMe(): boolean {
+      return this.rememberMe;
+    },
+    getAuthInfo(): AuthInfo | null {
+      return this.authInfo;
+    }
+  }
 });
