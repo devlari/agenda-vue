@@ -2,7 +2,7 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
       <div class="container">
-        <a class="navbar-brand" href="#">Agenda</a>
+        <a class="navbar-brand" href="/">Agenda</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -16,14 +16,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <router-link class="nav-link" to="/">Home</router-link>
-            </li>
+            <li class="nav-item"></li>
             <li class="nav-item">
               <router-link class="nav-link" to="/perfil">Perfil</router-link>
             </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/usuários">Usuários</router-link>
+            <li class="nav-item" v-if="isAdmin">
+              <router-link class="nav-link" to="/usuarios">Usuários</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/pessoas">Pessoas</router-link>
@@ -31,7 +29,7 @@
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link class="nav-link" to="/login"><ph-sign-out /> Logout</router-link>
+              <button class="nav-link" @click="handleLogout()"><ph-sign-out /> Logout</button>
             </li>
           </ul>
         </div>
@@ -42,9 +40,38 @@
 
 <script>
 import { PhSignOut } from '@phosphor-icons/vue'
+import { useAuthStore } from '@/modules/Auth/store'
+import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
+
 export default {
   name: 'HeaderComponent',
-  props: {},
+  setup() {
+    const router = useRouter()
+    const authStore = useAuthStore()
+    const isAdmin = authStore.authInfo.tipos.includes('ROLE_ADMIN')
+    async function handleLogout() {
+      const authStore = useAuthStore()
+
+      const confirm = await Swal.fire({
+        title: 'Deseja realmente sair?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não'
+      })
+
+      if (!confirm.isConfirmed) return
+
+      await authStore.logout()
+      router.push({ name: 'login' })
+    }
+
+    return {
+      handleLogout,
+      isAdmin
+    }
+  },
   components: {
     PhSignOut
   }

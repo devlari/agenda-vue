@@ -4,7 +4,6 @@
       <h2 class="mt-2 text-center">Editar Perfil</h2>
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title text-center">Informações do usuário</h5>
           <form>
             <div class="mb-3">
               <label for="nome" class="form-label">Nome</label>
@@ -38,8 +37,8 @@ import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import MainLayout from '@/components/layout/MainLayout.vue'
 import { useAuthStore } from '@/modules/Auth/store'
+import UserService from '@/modules/User/service'
 import { useUserStore } from '../../store'
-import UserService from '../../service'
 
 export default {
   name: 'EditPerfilView',

@@ -12,7 +12,6 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/modules/Auth/store'
 import { useUserStore } from '@/modules/User/store'
 import MainLayout from '@/components/layout/MainLayout.vue'
-import UserService from '@/modules/User/service'
 
 export default {
   components: {

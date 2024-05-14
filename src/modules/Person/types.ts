@@ -22,3 +22,10 @@ export type Person = {
     endereco: Address;
     foto: Photo;
 }
+
+export type PersonResponse = {
+    id: number;
+    nome: string; 
+    message: string;
+    object: Person;
+}
