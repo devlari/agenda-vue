@@ -1,7 +1,7 @@
 <template>
   <MainLayout>
     <div class="col-md-12">
-      <h2 class="mt-2 text-center">Editar Perfil</h2>
+      <h2 class="mt-2 text-center">Editar {{ isPerfil ? 'Perfil' : 'Usuário' }}</h2>
       <div class="card">
         <div class="card-body">
           <form>
@@ -14,12 +14,25 @@
               <input type="email" class="form-control" id="email" v-model="user.email" />
             </div>
             <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" v-model="user.username" />
+            </div>
+            <div class="mb-3">
               <label for="cpf" class="form-label">CPF</label>
               <input type="text" class="form-control" id="cpf" v-model="user.cpf" />
             </div>
             <div class="mb-3">
               <label for="telefone" class="form-label">Telefone</label>
               <input type="text" class="form-control" id="telefone" v-model="user.telefone" />
+            </div>
+            <div class="mb-3">
+              <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+              <input
+                type="date"
+                class="form-control"
+                id="dataNascimento"
+                v-model="user.dataNascimento"
+              />
             </div>
             <button type="submit" class="btn btn-primary" @click="(e) => salvarUsuario(e)">
               Salvar
@@ -103,7 +116,8 @@ export default {
 
     return {
       user,
-      salvarUsuario
+      salvarUsuario,
+      isPerfil: router.currentRoute.value.name == 'editarPerfil'
     }
   }
 }

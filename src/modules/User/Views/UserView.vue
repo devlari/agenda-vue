@@ -1,11 +1,10 @@
 <template>
-  <MainLayout>
-    <div class="row" v-if="user">
+  <MainLayout v-if="user">
+    <div class="row">
       <div class="col-md-12">
-        <h2 class="mt-2 text-center">Perfil</h2>
-        <div class="card">
+        <div class="card mt-4">
           <div class="card-body">
-            <h5 class="card-title text-center mb-4">Informações do usuário</h5>
+            <h2 class="card-title text-center mb-4">Detalhes do usuário {{ user.nome }}</h2>
             <div class="row">
               <div class="col-md-6">
                 <p>
@@ -30,7 +29,7 @@
               </div>
             </div>
             <router-link
-              :to="{ name: 'editarPerfil', params: { id: user.id } }"
+              :to="{ name: 'editarUsuario', params: { id: user.id } }"
               class="btn btn-primary mt-3"
               >Editar</router-link
             >
@@ -42,24 +41,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+import type { Ref } from 'vue'
 import { useRouter } from 'vue-router'
 import MainLayout from '@/components/layout/MainLayout.vue'
 import { useAuthStore } from '@/modules/Auth/store'
-import { useUserStore } from '@/modules/User/store'
+import UserService from '@/modules/User/service'
 import { formatDate } from '@/utils/index'
+import type { User } from '../types'
 
-export default defineComponent({
-  name: 'PerfilView',
+const user: Ref<User | null> = ref(null)
+const tipos: Ref<string[]> = ref(['ROLE_ADMIN', 'ROLE_USER'])
+
+export default {
+  name: 'UserView',
   components: {
     MainLayout
   },
   setup() {
-    const router = useRouter()
-    const authStore = useAuthStore()
-    const userStore = useUserStore()
-
     onMounted(async () => {
+      const authStore = useAuthStore()
+      const router = useRouter()
       const authInfo = authStore.authInfo
 
       if (!authInfo) {
@@ -67,10 +69,21 @@ export default defineComponent({
         router.push({ name: 'login' })
         return
       }
-    })
 
-    const user = userStore.getUser()
-    const tipos = userStore.getTipos()
+      async function buscarUsuario(token: string, id: number) {
+        const userService = new UserService(token)
+        try {
+          const response = await userService.buscarUsuario(id)
+          user.value = response.usuario
+          tipos.value = response.tipos
+        } catch (error) {
+          console.error(error)
+        }
+      }
+
+      const { id } = router.currentRoute.value.params
+      await buscarUsuario(authInfo.accessToken, Number(id[0]))
+    })
 
     return {
       user,
@@ -78,5 +91,5 @@ export default defineComponent({
       formatDate
     }
   }
-})
+}
 </script>
