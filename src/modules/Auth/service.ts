@@ -9,17 +9,7 @@ export default class AuthService {
   }
 
   async login(login: Login) {
-    // return this.apiClient.post("/auth/login/", { ...login });
-
-    const mockRes = {
-      accessToken: '123456',
-      id: 1,
-      tipos: ['admin'],
-      tokenType: 'Bearer',
-      username: 'admin'
-    };
-
-    return mockRes;
+    return this.apiClient.post("/auth/login/", { ...login });
   }
 
 }

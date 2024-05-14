@@ -1,11 +1,11 @@
 import ApiClient from "@/service/httpClient";
-import type { User } from "./types";
+import type { User, UserAPI, UserResponse } from "./types";
 
 export default class UserService {
   private apiClient: ApiClient;
 
-  constructor() {
-    this.apiClient = new ApiClient();
+  constructor(token: string) {
+    this.apiClient = new ApiClient(token);
   }
 
   async alterarSenha(user: User): Promise<User> {
@@ -16,21 +16,10 @@ export default class UserService {
     return this.apiClient.put("/usuario/atualizar/", { ...user });
   }
 
-  async buscarUsuario(id: number): Promise<User> {
-    // return this.apiClient.get(`/usuario/buscar/${id}`);
+  async buscarUsuario(id: number): Promise<UserResponse> {
+    const res: UserAPI = await this.apiClient.get(`/usuario/buscar/${id}`);
 
-    const mockUser: User = {
-      id: 1,
-      nome: "Usuário",
-      email: "usuario@example.com",
-      dataNascimento: "1990-01-01",
-      cpf: "123.456.789-00",
-      username: "usuario",
-      password: "senha123",
-      telefone: "(00) 1234-5678"
-    };
-
-    return mockUser;
+    return res.object;
   }
 
   async pesquisarUsuarios(termo: string): Promise<User[]> {

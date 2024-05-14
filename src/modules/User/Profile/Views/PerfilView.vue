@@ -7,8 +7,11 @@
           <div class="card-body">
             <h5 class="card-title">Informações do usuário</h5>
             <p class="card-text">
-              <!-- <strong>Nome:</strong> {{ user.name }} <br />
-              <strong>Email:</strong> {{ user.email }} -->
+              {{ user?.nome }}<br />
+              {{ user?.email }}<br />
+              {{ user?.telefone }}<br />
+              {{ user?.dataNascimento }}<br />
+              {{ user?.cpf }}<br />
             </p>
           </div>
         </div>
@@ -18,17 +21,46 @@
 </template>
 
 <script lang="ts">
+import { onMounted } from 'vue'
 import MainLayout from '@/components/layout/MainLayout.vue'
+import { useAuthStore } from '@/modules/Auth/store'
+import UserService from '../../service'
+import type { User } from '../../types'
+import router from '@/router'
 
 export default {
   name: 'PerfilView',
   data() {
     return {
-      user: {}
+      user: null as User | null
     }
   },
   components: {
     MainLayout
+  },
+  setup() {
+    const authStore = useAuthStore()
+    const userService = new UserService()
+
+    onMounted(async () => {
+      const authInfo = authStore.authInfo
+
+      if (!authInfo) {
+        await authStore.logout()
+        router.push({ name: 'login' })
+        return
+      }
+
+      const usuario = await userService.buscarUsuario(authInfo.id)
+
+      if (!usuario) {
+        await authStore.logout()
+        router.push({ name: 'login' })
+        return
+      }
+
+      this.user = usuario
+    })
   }
 }
 </script>

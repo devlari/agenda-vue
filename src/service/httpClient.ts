@@ -4,8 +4,9 @@ import { getAxiosClient } from "./axios";
 export default class ApiClient {
   public axiosInstance: AxiosInstance;
 
-  constructor() {
+  constructor(token: string) {
     this.axiosInstance = getAxiosClient();
+    this.axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }
 
   async get<T = any>(url: string, data = {}): Promise<T> {

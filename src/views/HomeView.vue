@@ -1,16 +1,21 @@
 <template>
   <MainLayout>
-    <h2 class="mt-2 text-center">Bem vindo, {{ user.nome }}</h2>
+    <div v-if="user">
+      <h2 class="mt-2 text-center">Bem vindo, {{ user.nome }}</h2>
+    </div>
   </MainLayout>
 </template>
 
 <script lang="ts">
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/modules/Auth/store'
 import { useUserStore } from '@/modules/User/store'
 import MainLayout from '@/components/layout/MainLayout.vue'
 import UserService from '@/modules/User/service'
-import { onMounted } from 'vue'
+import type { User } from '@/modules/User/types'
+
+const user = ref<User | null>(null)
 
 export default {
   components: {
@@ -19,7 +24,6 @@ export default {
   setup() {
     const authStore = useAuthStore()
     const userStore = useUserStore()
-    const userService = new UserService()
     const router = useRouter()
 
     onMounted(async () => {
@@ -32,17 +36,19 @@ export default {
       }
 
       //TODO: Implementar "lembre-se de mim"
+      const userService = new UserService(authInfo.accessToken)
 
       try {
-        const user = await userService.buscarUsuario(authInfo.id)
+        const res = await userService.buscarUsuario(authInfo.id)
 
-        if (!user) {
+        if (!res) {
           await authStore.logout()
           router.push({ name: 'login' })
           return
         }
 
-        userStore.setUser(user)
+        userStore.setUser(res.usuario)
+        user.value = res.usuario
       } catch (error) {
         console.error(error)
         await authStore.logout()
@@ -51,10 +57,8 @@ export default {
       }
     })
 
-    const user = userStore.getUser()
-
     return {
-      user
+      user: userStore.user
     }
   }
 }

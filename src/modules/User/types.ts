@@ -1,3 +1,8 @@
+export type UserAPI = {
+    message: string;
+    object: UserResponse;
+}
+
 export type User = {
     id: number;
     nome: string;
@@ -7,4 +12,9 @@ export type User = {
     username: string;
     password: string;
     telefone: string;
+}
+
+export type UserResponse = {
+    tipos: string[];
+    usuario: User;
 }
