@@ -7,15 +7,12 @@
 </template>
 
 <script lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/modules/Auth/store'
 import { useUserStore } from '@/modules/User/store'
 import MainLayout from '@/components/layout/MainLayout.vue'
 import UserService from '@/modules/User/service'
-import type { User } from '@/modules/User/types'
-
-const user = ref<User | null>(null)
 
 export default {
   components: {
@@ -34,31 +31,10 @@ export default {
         router.push({ name: 'login' })
         return
       }
-
-      //TODO: Implementar "lembre-se de mim"
-      const userService = new UserService(authInfo.accessToken)
-
-      try {
-        const res = await userService.buscarUsuario(authInfo.id)
-
-        if (!res) {
-          await authStore.logout()
-          router.push({ name: 'login' })
-          return
-        }
-
-        userStore.setUser(res.usuario)
-        user.value = res.usuario
-      } catch (error) {
-        console.error(error)
-        await authStore.logout()
-        await router.push({ name: 'login' })
-        return
-      }
     })
 
     return {
-      user: userStore.user
+      user: userStore.getUser()
     }
   }
 }

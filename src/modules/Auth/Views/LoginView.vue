@@ -52,6 +52,8 @@ import SweetAlert from 'sweetalert2'
 import InputComponent from '@/components/ui/Input.vue'
 import AuthService from '../service'
 import { useAuthStore } from '../store'
+import UserService from '@/modules/User/service'
+import { useUserStore } from '@/modules/User/store'
 
 export default defineComponent({
   components: {
@@ -62,9 +64,11 @@ export default defineComponent({
     const username = ref('')
     const password = ref('')
     const remember = ref(false)
+
     const router = useRouter()
     const authStore = useAuthStore()
-    const service = new AuthService()
+    const userStore = useUserStore()
+    const authService = new AuthService()
 
     const handleLogin = async () => {
       if (!username.value || !password.value) {
@@ -77,8 +81,14 @@ export default defineComponent({
       }
 
       try {
-        const info = await service.login({ username: username.value, password: password.value })
-        await authStore.login(info)
+        const info = await authService.login({ username: username.value, password: password.value })
+        authStore.login(info)
+
+        const userService = new UserService(info.accessToken)
+        const user = await userService.buscarUsuario(info.id)
+
+        userStore.setUser(user.usuario)
+        userStore.setTipos(user.tipos)
         router.push({ name: 'home' })
       } catch (error) {
         await SweetAlert.fire({

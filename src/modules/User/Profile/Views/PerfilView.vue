@@ -1,18 +1,23 @@
 <template>
   <MainLayout>
-    <div class="row">
+    <div class="row" v-if="user">
       <div class="col-md-12">
         <h2 class="mt-2 text-center">Perfil</h2>
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Informações do usuário</h5>
+            <h5 class="card-title text-center">Informações do usuário</h5>
             <p class="card-text">
-              {{ user?.nome }}<br />
-              {{ user?.email }}<br />
-              {{ user?.telefone }}<br />
-              {{ user?.dataNascimento }}<br />
-              {{ user?.cpf }}<br />
+              <strong>Nome:</strong> {{ user.nome }}
+              <span class="badge bg-danger" v-if="tipos.includes('ROLE_ADMIN')">ADMIN</span><br />
+              <strong>Email:</strong> {{ user.email }}<br />
+              <strong>CPF:</strong> {{ user.cpf }}<br />
+              <strong>Telefone:</strong> {{ user.telefone }}<br />
             </p>
+            <router-link
+              :to="{ name: 'editarPerfil', params: { id: user.id } }"
+              class="btn btn-primary d-flex align-self-end"
+              >Editar</router-link
+            >
           </div>
         </div>
       </div>
@@ -23,26 +28,18 @@
 <script lang="ts">
 import { onMounted } from 'vue'
 import MainLayout from '@/components/layout/MainLayout.vue'
-import { useAuthStore } from '@/modules/Auth/store'
-import UserService from '../../service'
-import type { User } from '../../types'
 import router from '@/router'
+import { useAuthStore } from '@/modules/Auth/store'
+import { useUserStore } from '../../store'
 
 export default {
   name: 'PerfilView',
-  data() {
-    return {
-      user: null as User | null
-    }
-  },
   components: {
     MainLayout
   },
   setup() {
-    const authStore = useAuthStore()
-    const userService = new UserService()
-
     onMounted(async () => {
+      const authStore = useAuthStore()
       const authInfo = authStore.authInfo
 
       if (!authInfo) {
@@ -50,17 +47,16 @@ export default {
         router.push({ name: 'login' })
         return
       }
-
-      const usuario = await userService.buscarUsuario(authInfo.id)
-
-      if (!usuario) {
-        await authStore.logout()
-        router.push({ name: 'login' })
-        return
-      }
-
-      this.user = usuario
     })
+
+    const userStore = useUserStore()
+    const user = userStore.getUser()
+    const tipos = userStore.getTipos()
+
+    return {
+      user,
+      tipos
+    }
   }
 }
 </script>

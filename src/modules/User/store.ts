@@ -3,7 +3,8 @@ import type { User } from "./types";
 
 export const useUserStore = defineStore('user', {
     state: () => ({
-        user: {} as User
+        user: {} as User,
+        tipos: [] as string[]
     }),
     actions: {
         setUser(user: User): void {
@@ -11,6 +12,14 @@ export const useUserStore = defineStore('user', {
         },
         getUser(): User {
             return this.user;
+        },
+
+        setTipos(tipos: string[]): void {
+            this.tipos = tipos;
+        },
+
+        getTipos(): string[] {
+            return this.tipos;
         }
     }
 });
