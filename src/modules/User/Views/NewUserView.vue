@@ -6,20 +6,17 @@
         <div class="card-body">
           <form>
             <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" v-model="user.username" />
+              <InputComponent label="Usuário" type="text" v-model="user.username" required />
             </div>
             <div class="mb-3">
-              <label for="password" class="form-label">Senha</label>
-              <input type="password" class="form-control" id="password" v-model="user.password" />
+              <InputComponent label="Senha" type="password" v-model="user.password" required />
             </div>
             <div class="mb-3">
-              <label for="repeat-password" class="form-label">Confirmar senha</label>
-              <input
+              <InputComponent
+                label="Repetir Senha"
                 type="password"
-                class="form-control"
-                id="repeat-password"
                 v-model="user.repeatPassword"
+                required
               />
             </div>
             <div class="mb-3">
@@ -32,28 +29,23 @@
               <label for="isAdmin" class="form-label">Admin</label>
             </div>
             <div class="mb-3">
-              <label for="nome" class="form-label">Nome</label>
-              <input type="text" class="form-control" id="nome" v-model="user.nome" />
+              <InputComponent label="Nome" type="text" v-model="user.nome" id="nome" required />
             </div>
             <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" v-model="user.email" />
+              <InputComponent label="Email" type="email" v-model="user.email" id="email" />
             </div>
             <div class="mb-3">
-              <label for="cpf" class="form-label">CPF</label>
-              <input type="text" class="form-control" id="cpf" v-model="user.cpf" />
+              <InputComponent label="CPF" type="text" v-model="user.cpf" id="cpf" />
             </div>
             <div class="mb-3">
-              <label for="telefone" class="form-label">Telefone</label>
-              <input type="text" class="form-control" id="telefone" v-model="user.telefone" />
+              <InputComponent label="Telefone" type="text" v-model="user.telefone" id="telefone" />
             </div>
             <div class="mb-3">
-              <label for="dataNascimento" class="form-label">Data de Nascimento</label>
-              <input
+              <InputComponent
+                label="Data de Nascimento"
                 type="date"
-                class="form-control"
-                id="dataNascimento"
                 v-model="user.dataNascimento"
+                id="dataNascimento"
               />
             </div>
             <button type="submit" class="btn btn-primary" @click="(e) => salvarUsuario(e)">
@@ -71,6 +63,7 @@ import { onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+import InputComponent from '@/components/ui/Input.vue'
 import MainLayout from '@/components/layout/MainLayout.vue'
 import { useAuthStore } from '@/modules/Auth/store'
 import UserService from '@/modules/User/service'
@@ -79,7 +72,8 @@ import type { UserForm, User } from '../types'
 export default {
   name: 'EditPerfilView',
   components: {
-    MainLayout
+    MainLayout,
+    InputComponent
   },
   setup() {
     const authStore = useAuthStore()

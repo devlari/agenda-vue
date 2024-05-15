@@ -5,12 +5,19 @@
       <div class="mb-3 d-flex justify-content-center">
         <PhAddressBookTabs :size="32" color="black" weight="fill" />
       </div>
-      <InputComponent class="mt-2" placeholder="Insira seu login" type="text" v-model="username" />
+      <InputComponent
+        class="mt-2"
+        placeholder="Insira seu login"
+        type="text"
+        v-model="username"
+        id="username"
+      />
       <InputComponent
         class="mt-2"
         placeholder="Insira sua senha"
         type="password"
         v-model="password"
+        id="password"
       />
       <div class="form-check mt-2">
         <input class="form-check-input" type="checkbox" id="checkLembrar" v-model="remember" />

@@ -6,31 +6,24 @@
         <div class="card-body">
           <form>
             <div class="mb-3">
-              <label for="nome" class="form-label">Nome</label>
-              <input type="text" class="form-control" id="nome" v-model="user.nome" />
+              <InputComponent label="Nome" type="text" v-model="user.nome" required />
             </div>
             <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" v-model="user.email" />
+              <InputComponent label="Email" type="email" v-model="user.email" required />
             </div>
             <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" v-model="user.username" />
+              <InputComponent label="Username" type="text" v-model="user.username" required />
             </div>
             <div class="mb-3">
-              <label for="cpf" class="form-label">CPF</label>
-              <input type="text" class="form-control" id="cpf" v-model="user.cpf" />
+              <InputComponent label="CPF" type="text" v-model="user.cpf" />
             </div>
             <div class="mb-3">
-              <label for="telefone" class="form-label">Telefone</label>
-              <input type="text" class="form-control" id="telefone" v-model="user.telefone" />
+              <InputComponent label="Telefone" type="text" v-model="user.telefone" />
             </div>
             <div class="mb-3">
-              <label for="dataNascimento" class="form-label">Data de Nascimento</label>
-              <input
+              <InputComponent
+                label="Data de Nascimento"
                 type="date"
-                class="form-control"
-                id="dataNascimento"
                 v-model="user.dataNascimento"
               />
             </div>
@@ -49,6 +42,7 @@ import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import MainLayout from '@/components/layout/MainLayout.vue'
+import InputComponent from '@/components/ui/Input.vue'
 import { useAuthStore } from '@/modules/Auth/store'
 import UserService from '@/modules/User/service'
 import { useUserStore } from '../../store'
@@ -56,7 +50,8 @@ import { useUserStore } from '../../store'
 export default {
   name: 'EditPerfilView',
   components: {
-    MainLayout
+    MainLayout,
+    InputComponent
   },
   setup() {
     const authStore = useAuthStore()
