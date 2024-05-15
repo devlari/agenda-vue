@@ -1,5 +1,5 @@
 import ApiClient from "@/service/httpClient";
-import type { User, UserAPI, UserResponse } from "./types";
+import type { User, UserAPI, UserForm, UserResponse } from "./types";
 
 export default class UserService {
   private apiClient: ApiClient;
@@ -26,8 +26,11 @@ export default class UserService {
     return this.apiClient.post(`/usuario/pesquisar`, { termo });
   }
 
-  async salvarUsuario(user: User): Promise<User> {
-    return this.apiClient.post("/usuario/salvar/", { ...user });
+  async salvarUsuario(
+    usuario: User,
+    tipos: string[],
+  ): Promise<User> {
+    return this.apiClient.post("/usuario/salvar/", { ...tipos, ...usuario });
   }
 
 }

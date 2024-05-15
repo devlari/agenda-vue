@@ -54,7 +54,7 @@ const user: Ref<User | null> = ref(null)
 const tipos: Ref<string[]> = ref(['ROLE_ADMIN', 'ROLE_USER'])
 
 export default {
-  name: 'UserView',
+  name: 'NewUserView',
   components: {
     MainLayout
   },
