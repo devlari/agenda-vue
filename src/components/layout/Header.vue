@@ -49,10 +49,16 @@ export default {
   setup() {
     const router = useRouter()
     const authStore = useAuthStore()
-    const isAdmin = authStore.authInfo.tipos.includes('ROLE_ADMIN')
-    async function handleLogout() {
-      const authStore = useAuthStore()
 
+    if (!authStore.authInfo) {
+      authStore.logout()
+      router.push({ name: 'login' })
+      return {}
+    }
+
+    const isAdmin = authStore.authInfo.tipos.includes('ROLE_ADMIN')
+
+    async function handleLogout() {
       const confirm = await Swal.fire({
         title: 'Deseja realmente sair?',
         icon: 'question',

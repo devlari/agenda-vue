@@ -1,5 +1,5 @@
 import ApiClient from "@/service/httpClient";
-import type { User, UserAPI, UserForm, UserResponse } from "./types";
+import type { User, UserAPI, UserResponse } from "./types";
 
 export default class UserService {
   private apiClient: ApiClient;

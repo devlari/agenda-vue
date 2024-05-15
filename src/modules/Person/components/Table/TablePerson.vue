@@ -4,15 +4,14 @@
       <thead>
         <tr class="table-dark">
           <th scope="col">Nome</th>
-          <th scope="col">Email</th>
           <th scope="col">CPF</th>
-          <th scope="col">Telefone</th>
+          <th scope="col">Endereço</th>
           <th scope="col">Ações</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in users" :key="user.id">
-          <ItemTableUsers :user="user" />
+        <tr v-for="person in people" :key="person.id">
+          <ItemTablePerson :person="person" />
         </tr>
       </tbody>
     </table>
@@ -27,17 +26,17 @@ table {
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import ItemTableUsers from '../Table/ItemTableUsers.vue'
-import type { User } from '../../types'
+import ItemTablePerson from './ItemTablePerson.vue'
+import type { Person } from '../../types'
 
 export default defineComponent({
-  name: 'TableUsers',
+  name: 'TablePerson',
   components: {
-    ItemTableUsers
+    ItemTablePerson
   },
   props: {
-    users: {
-      type: Array as () => User[],
+    people: {
+      type: Array as () => Person[],
       required: true
     }
   }

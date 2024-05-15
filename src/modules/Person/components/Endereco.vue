@@ -1,8 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <h2 class="mt-2 text-center">Endereço</h2>
-      <h5 class="card-title">Informações do endereço</h5>
+      <h5 class="card-title text-center mb-3">Informações do endereço</h5>
       <div class="row">
         <div class="col-md-6">
           <p><strong>CEP:</strong> {{ ender.cep }}</p>

@@ -7,6 +7,8 @@ import EditPerfilView from '@/modules/User/Profile/Views/EditPerfilView.vue';
 import UsersListView from '@/modules/User/Views/UsersListView.vue';
 import UserView from '@/modules/User/Views/UserView.vue';
 import NewUserView from '@/modules/User/Views/NewUserView.vue';
+import PersonListView from '@/modules/Person/Views/PeopleListLiew.vue';
+import PersonView from '@/modules/Person/Views/PersonView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +52,16 @@ const router = createRouter({
       path: '/usuarios/novo',
       name: 'novoUsuario',
       component: NewUserView
+    },
+    {
+      path: '/pessoas',
+      name: 'pessoas',
+      component: PersonListView
+    },
+    {
+      path: '/pessoas/:id',
+      name: 'pessoa',
+      component: PersonView
     }
   ]
 })

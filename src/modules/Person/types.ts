@@ -24,8 +24,6 @@ export type Person = {
 }
 
 export type PersonResponse = {
-    id: number;
-    nome: string; 
     message: string;
     object: Person;
 }

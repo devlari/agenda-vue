@@ -13,8 +13,8 @@ export default class PersonService {
     return res;
   }
 
-  async pesquisarPessoas(termo: string): Promise<Person[]> {
-    return this.apiClient.post(`/pessoa/pesquisar`, { termo });
+  async pesquisarPessoas(nome: string): Promise<Person[]> {
+    return this.apiClient.post(`/pessoa/pesquisar`, { nome });
   }
 
   async removerPessoa(id: number): Promise<void> {
