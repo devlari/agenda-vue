@@ -24,6 +24,9 @@
         <div class="col-md-6">
           <p><strong>Estado:</strong> {{ ender.estado }}</p>
         </div>
+        <div class="col-md-6">
+          <p><strong>País:</strong> {{ ender.pais }}</p>
+        </div>
       </div>
     </div>
   </div>

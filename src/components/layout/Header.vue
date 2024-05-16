@@ -2,7 +2,7 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
       <div class="container">
-        <a class="navbar-brand" href="/">Agenda</a>
+        <router-link class="navbar-brand" to="/">Agenda</router-link>
         <button
           class="navbar-toggler"
           type="button"

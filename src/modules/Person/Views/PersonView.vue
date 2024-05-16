@@ -14,11 +14,11 @@
               </div>
               <EnderecoComponent :endereco="person.endereco" />
             </div>
-            <!-- <router-link
-              :to="{ name: 'editarUsuario', params: { id: user.id } }"
+            <router-link
+              :to="{ name: 'editarPessoa', params: { id: person.id } }"
               class="btn btn-primary mt-3"
               >Editar</router-link
-            > -->
+            >
           </div>
         </div>
       </div>

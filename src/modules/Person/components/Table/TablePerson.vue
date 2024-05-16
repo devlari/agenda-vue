@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr v-for="person in people" :key="person.id">
-          <ItemTablePerson :person="person" />
+          <ItemTablePerson :person="person" :deletarPessoa="deletarPessoa" />
         </tr>
       </tbody>
     </table>
@@ -37,6 +37,10 @@ export default defineComponent({
   props: {
     people: {
       type: Array as () => Person[],
+      required: true
+    },
+    deletarPessoa: {
+      type: Function as unknown as () => (id: number) => Promise<void>,
       required: true
     }
   }

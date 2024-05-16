@@ -23,6 +23,13 @@ export type Person = {
     foto: Photo;
 }
 
+export type PersonForm = {
+    nome: string;
+    cpf: string;
+    endereco: Address;
+    foto: Photo;
+}
+
 export type PersonResponse = {
     message: string;
     object: Person;

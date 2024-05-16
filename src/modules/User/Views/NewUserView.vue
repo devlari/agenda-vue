@@ -5,49 +5,31 @@
       <div class="card">
         <div class="card-body">
           <form>
-            <div class="mb-3">
-              <InputComponent label="Usuário" type="text" v-model="user.username" required />
-            </div>
-            <div class="mb-3">
-              <InputComponent label="Senha" type="password" v-model="user.password" required />
-            </div>
-            <div class="mb-3">
-              <InputComponent
-                label="Repetir Senha"
-                type="password"
-                v-model="user.repeatPassword"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <input
-                type="checkbox"
-                class="form-check-input me-2"
-                id="isAdmin"
-                v-model="user.isAdmin"
-              />
-              <label for="isAdmin" class="form-label">Admin</label>
-            </div>
-            <div class="mb-3">
-              <InputComponent label="Nome" type="text" v-model="user.nome" id="nome" required />
-            </div>
-            <div class="mb-3">
-              <InputComponent label="Email" type="email" v-model="user.email" id="email" />
-            </div>
-            <div class="mb-3">
-              <InputComponent label="CPF" type="text" v-model="user.cpf" id="cpf" />
-            </div>
-            <div class="mb-3">
-              <InputComponent label="Telefone" type="text" v-model="user.telefone" id="telefone" />
-            </div>
-            <div class="mb-3">
-              <InputComponent
-                label="Data de Nascimento"
-                type="date"
-                v-model="user.dataNascimento"
-                id="dataNascimento"
-              />
-            </div>
+            <InputComponent label="Usuário" type="text" v-model="user.username" required />
+            <InputComponent label="Senha" type="password" v-model="user.password" required />
+            <InputComponent
+              label="Repetir Senha"
+              type="password"
+              v-model="user.repeatPassword"
+              required
+            />
+            <input
+              type="checkbox"
+              class="form-check-input me-2"
+              id="isAdmin"
+              v-model="user.isAdmin"
+            />
+            <label for="isAdmin" class="form-label">Admin</label>
+            <InputComponent label="Nome" type="text" v-model="user.nome" id="nome" required />
+            <InputComponent label="Email" type="email" v-model="user.email" id="email" />
+            <InputComponent label="CPF" type="text" v-model="user.cpf" id="cpf" />
+            <InputComponent label="Telefone" type="text" v-model="user.telefone" id="telefone" />
+            <InputComponent
+              label="Data de Nascimento"
+              type="date"
+              v-model="user.dataNascimento"
+              id="dataNascimento"
+            />
             <button type="submit" class="btn btn-primary" @click="(e) => salvarUsuario(e)">
               Salvar
             </button>

@@ -9,6 +9,8 @@ import UserView from '@/modules/User/Views/UserView.vue';
 import NewUserView from '@/modules/User/Views/NewUserView.vue';
 import PersonListView from '@/modules/Person/Views/PeopleListLiew.vue';
 import PersonView from '@/modules/Person/Views/PersonView.vue';
+import EditPersonView from '@/modules/Person/Views/EditPersonView.vue';
+import NewPersonView from '@/modules/Person/Views/NewPerson.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,10 +61,20 @@ const router = createRouter({
       component: PersonListView
     },
     {
+      path: '/pessoas/novo',
+      name: 'novaPessoa',
+      component: NewPersonView
+    },
+    {
       path: '/pessoas/:id',
       name: 'pessoa',
       component: PersonView
-    }
+    },
+    {
+      path: '/pessoas/:id/editar',
+      name: 'editarPessoa',
+      component: EditPersonView
+    },
   ]
 })
 

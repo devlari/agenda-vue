@@ -6,14 +6,13 @@
         <PhAddressBookTabs :size="32" color="black" weight="fill" />
       </div>
       <InputComponent
-        class="mt-2"
+        class="mb-2"
         placeholder="Insira seu login"
         type="text"
         v-model="username"
         id="username"
       />
       <InputComponent
-        class="mt-2"
         placeholder="Insira sua senha"
         type="password"
         v-model="password"
@@ -28,7 +27,11 @@
   </div>
 </template>
 
-<style>
+<style scoped>
+body {
+  background-color: #1a1a1a;
+}
+
 .login {
   display: flex;
   flex-direction: column;

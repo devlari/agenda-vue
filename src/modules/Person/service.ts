@@ -1,5 +1,5 @@
 import ApiClient from "@/service/httpClient";
-import type { Person, PersonResponse } from "./types";
+import type { Person, PersonForm, PersonResponse } from "./types";
 
 export default class PersonService {
   private apiClient: ApiClient;
@@ -21,7 +21,7 @@ export default class PersonService {
     return this.apiClient.delete(`/pessoa/remover/${id}`);
   }
 
-  async salvarPessoa(person: Person): Promise<PersonResponse> {
+  async salvarPessoa(person: Person | PersonForm): Promise<PersonResponse> {
     return this.apiClient.post("/pessoa/salvar/", { ...person });
   }
 

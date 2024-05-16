@@ -5,28 +5,23 @@
       <div class="card">
         <div class="card-body">
           <form>
-            <div class="mb-3">
-              <InputComponent label="Nome" type="text" v-model="user.nome" required />
-            </div>
-            <div class="mb-3">
-              <InputComponent label="Email" type="email" v-model="user.email" required />
-            </div>
-            <div class="mb-3">
-              <InputComponent label="Username" type="text" v-model="user.username" required />
-            </div>
-            <div class="mb-3">
-              <InputComponent label="CPF" type="text" v-model="user.cpf" />
-            </div>
-            <div class="mb-3">
-              <InputComponent label="Telefone" type="text" v-model="user.telefone" />
-            </div>
-            <div class="mb-3">
-              <InputComponent
-                label="Data de Nascimento"
-                type="date"
-                v-model="user.dataNascimento"
-              />
-            </div>
+            <InputComponent label="Nome" type="text" v-model="user.nome" id="nome" required />
+            <InputComponent label="Email" type="email" v-model="user.email" id="email" required />
+            <InputComponent
+              label="Username"
+              type="text"
+              v-model="user.username"
+              id="username"
+              required
+            />
+            <InputComponent label="CPF" type="text" v-model="user.cpf" id="cpf" />
+            <InputComponent label="Telefone" type="text" v-model="user.telefone" id="telefone" />
+            <InputComponent
+              label="Data de Nascimento"
+              type="date"
+              v-model="user.dataNascimento"
+              id="datanasc"
+            />
             <button type="submit" class="btn btn-primary" @click="(e) => salvarUsuario(e)">
               Salvar
             </button>
@@ -108,8 +103,6 @@ export default {
         }
       }
     }
-
-    console.log(user)
 
     return {
       user,

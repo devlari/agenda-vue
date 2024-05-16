@@ -7,12 +7,12 @@
     <p>{{ person.endereco.cidade }} - {{ person.endereco.estado }}</p>
   </td>
   <td>
-    <!-- <router-link
+    <router-link
       :to="{ name: 'editarPessoa', params: { id: person.id } }"
       class="btn btn-outline-primary"
       >Editar</router-link
-    > -->
-    <!-- <button class="btn btn-danger">Excluir</button> -->
+    >
+    <button class="btn btn-danger ms-3" @click="deletarPessoa(person.id)">Excluir</button>
   </td>
 </template>
 
@@ -25,6 +25,10 @@ export default defineComponent({
   props: {
     person: {
       type: Object as () => Person,
+      required: true
+    },
+    deletarPessoa: {
+      type: Function as unknown as () => (id: number) => Promise<void>,
       required: true
     }
   }

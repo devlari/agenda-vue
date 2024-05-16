@@ -1,15 +1,17 @@
 <template>
-  <div class="input">
-    <label class="form-label" v-if="label" :for="id">{{ label }}{{ required ? '*' : '' }}</label>
-    <input
-      :placeholder="placeholder"
-      :type="type"
-      :value="modelValue"
-      :class="['form-control', { required: required }]"
-      @input="handleInput"
-      :id="id"
-      :required="required"
-    />
+  <div>
+    <div class="input">
+      <label class="form-label" v-if="label" :for="id">{{ label }}{{ required ? '*' : '' }}</label>
+      <input
+        :placeholder="placeholder"
+        :type="type"
+        :value="modelValue"
+        :class="['form-control', { required: required }]"
+        @input="handleInput"
+        :id="id"
+        :required="required"
+      />
+    </div>
   </div>
 </template>
 
