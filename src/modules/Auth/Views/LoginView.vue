@@ -28,17 +28,13 @@
 </template>
 
 <style scoped>
-body {
-  background-color: #1a1a1a;
-}
-
 .login {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: var(--black);
+  background-color: #1a1a1a;
 }
 
 .box {
