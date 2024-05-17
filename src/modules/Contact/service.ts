@@ -8,8 +8,8 @@ export default class ContactService {
         this.apiClient = new ApiClient(token);
     }
 
-    async buscarContato(id: number): Promise<Contact> {
-        const res: Contact = await this.apiClient.get(`/contato/listar/${id}`);
+    async buscarContato(id: number): Promise<Contact[]> {
+        const res: Contact[] = await this.apiClient.get(`/contato/listar/${id}`);
         return res;
     }
 

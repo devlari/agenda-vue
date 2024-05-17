@@ -5,11 +5,25 @@
       <div class="card">
         <div class="card-body">
           <form>
-            <InputComponent label="Usuário" type="text" v-model="user.username" required />
-            <InputComponent label="Senha" type="password" v-model="user.password" required />
             <InputComponent
+              label="Usuário"
+              id="user"
+              type="text"
+              v-model="user.username"
+              required
+            />
+            <InputComponent
+              label="Senha"
+              id="password"
+              type="password"
+              v-model="user.password"
+              required
+            />
+            <InputComponent
+              id="repeatPassword"
               label="Repetir Senha"
               type="password"
+              class="mb-2"
               v-model="user.repeatPassword"
               required
             />
