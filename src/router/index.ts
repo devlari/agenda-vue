@@ -12,6 +12,7 @@ import PersonView from '@/modules/Person/Views/PersonView.vue';
 import EditPersonView from '@/modules/Person/Views/EditPersonView.vue';
 import NewPersonView from '@/modules/Person/Views/NewPerson.vue';
 import ContactView from '@/modules/Contact/Pages/ContactView.vue';
+import NewContactView from '@/modules/Contact/Pages/NewContactView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,6 +81,11 @@ const router = createRouter({
       path: '/contatos/pessoa/:id',
       name: 'contatosPessoa',
       component: ContactView
+    },
+    {
+      path: '/contatos/pessoa/:id/novo',
+      name: 'novoContato',
+      component: NewContactView
     }
   ]
 })

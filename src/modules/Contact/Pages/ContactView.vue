@@ -8,15 +8,29 @@
               <div class="d-flex align-items-center justify-content-between mb-2">
                 <PhotoComponent :photoId="contact[0].pessoa.id" />
                 <strong> {{ contact[0].pessoa.nome }} </strong>
-                <!-- <router-link
-                  :to="{ name: 'adicionarContato', params: { id: contact[0].pessoa.id } }"
-                  class="btn btn-primary mt-3"
+                <router-link
+                  :to="{ name: 'novoContato', params: { id: contact[0].pessoa.id } }"
+                  class="btn btn-primary"
                   >Novo</router-link
-                > -->
+                >
               </div>
               <div>
                 <ContactList :contacts="contact" :deletarContato="deletarContato" />
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12" v-else>
+        <div class="card mt-4">
+          <div class="card-body">
+            <div class="row">
+              <h3 class="text-center">Nenhum contato encontrado</h3>
+              <!-- <router-link
+                :to="{ name: 'novoContato', params: { id: contact[0].pessoa.id } }"
+                class="btn btn-primary mt-3"
+                >Novo</router-link
+              > -->
             </div>
           </div>
         </div>
@@ -69,10 +83,7 @@ async function deletarContato(idCon: number) {
       icon: 'success'
     })
 
-    const { id } = router.currentRoute.value.params
-    const resContacts = await contactService.buscarContato(Number(id))
-
-    contact.value = resContacts
+    router.back()
   }
 }
 
@@ -98,6 +109,23 @@ export default {
       const { id } = router.currentRoute.value.params
       const contactService = new ContactService(authInfo.accessToken)
       const resContacts = await contactService.buscarContato(Number(id))
+
+      if (resContacts.length === 0) {
+        const confirm = await Swal.fire({
+          title: 'Nenhum contato encontrado',
+          text: 'Deseja criar um novo contato para esta pessoa?',
+          icon: 'info',
+          showCancelButton: true,
+          confirmButtonText: 'Sim',
+          cancelButtonText: 'Não'
+        })
+
+        if (confirm.isConfirmed) {
+          router.push({ name: 'novoContato', params: { id: id } })
+        }
+
+        return
+      }
 
       contact.value = resContacts
     })
